@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Bind Image
+{% endblock %}
+
+{% block main %}
+<div class="form-group">
+    <form action="/bindimage" method="post"  enctype="multipart/form-data">
+    <input type="text" name="imgid" value={{id}} id="imgid" hidden=true  style="width=128;height=128 !important;" />
+    <img src={{binary}}></img>
+    <br />
+    <br />
+
+    <div class="form-group">
+    <select autocomplete="off" autofocus class="form-control" name="category" placeholder="Symbol"  />
+    {% for Category in category %}
+    <option value={{Category.id}}>{{Category.description}}</option>
+    {% endfor %}
+    </select>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Bind</button>
+    </form>
+</div>
+{% endblock %}
