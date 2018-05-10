@@ -1,9 +1,9 @@
-##Use case:
-	#User opens website.
-	#First image of several images is shown.
-	There is a dropdown that is used to categorize the image.
-	The dropdown shows an empty entry at the beginning.
-	User chooses a category (A, B or C), then presses a button, the categorization is saved, andthe next image is shown.
+## Use case:
+	# User opens website.
+	# First image of several images is shown.
+	# There is a dropdown that is used to categorize the image.
+	# The dropdown shows an empty entry at the beginning.
+	# User chooses a category (A, B or C), then presses a button, the categorization is saved, andthe next image is shown.
 
 Challenge:
 	Create database* 
