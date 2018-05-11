@@ -35,8 +35,14 @@ connection = sqlite3.connect("kapsch.db")
 
 @app.route("/")
 def index():
-
-        flash("Wellcome")
+        countimages = connection.cursor()
+        countimages.execute("select count(*) from images where category is null ")
+        numofImgaeWithoutCategory = countimages.fetchone()[0]
+        if numofImgaeWithoutCategory == 0 :
+                flash("you don't have any image to categories")
+        else:
+                tmpstr = "you have "+ str(numofImgaeWithoutCategory) + "  ready to  categories"
+                flash(tmpstr)
         return render_template("index.html")
 
 
@@ -54,7 +60,7 @@ def bindimage():
 
 
             imagecursor = connection.cursor()
-            imagecursor.execute("select * from   images where category is null")
+            imagecursor.execute("select * from   images where category is null")  # fetch all image not categories from database
 
             currentData = {}
             currentData = imagecursor.fetchone()
@@ -62,27 +68,9 @@ def bindimage():
             imgid = currentData[0]
             imgbinary = currentData[1]
             with open("./static/image_name.jpg", "wb") as img:
-                img.write(base64.b64decode(imgbinary))
+                    img.write(base64.b64decode(imgbinary))      # convert the the binary to image
 
-
-            category = connection.cursor()
-            category.execute("select * from category")
-
-            categoryCount = connection.cursor()
-            categoryCount.execute("select count(*) from category ")
-            count = categoryCount.fetchone()[0]
-
-            rowData = {}  # this is a dict
-            listRowData = []  # this is list
-
-            currentRow = 0
-            while currentRow <= count - 1:
-                rowData = {}
-                currCategory = category.fetchone()
-                rowData['description'] = currCategory[1]
-                rowData['id'] = currCategory[0]
-                listRowData.append(rowData)
-                currentRow = currentRow + 1
+            listRowData = buildCategoryList()
 
             return render_template("bindImage.html",id=imgid,binary="./static/image_name.jpg" , category=listRowData)
     else:
@@ -142,3 +130,26 @@ def apology(message, code=400):
             s = s.replace(old, new)
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
+
+
+def buildCategoryList():
+            category = connection.cursor()
+            category.execute("select * from category")
+
+            categoryCount = connection.cursor()
+            categoryCount.execute("select count(*) from category ")
+            count = categoryCount.fetchone()[0]
+
+            rowData = {}  # this is a dict
+            listRowData = []  # this is list
+
+            currentRow = 0
+            while currentRow <= count - 1:
+                rowData = {}
+                currCategory = category.fetchone()
+                rowData['description'] = currCategory[1]
+                rowData['id'] = currCategory[0]
+                listRowData.append(rowData)
+                currentRow = currentRow + 1
+
+            return listRowData
