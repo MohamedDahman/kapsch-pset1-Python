@@ -36,6 +36,7 @@ connection = sqlite3.connect("kapsch.db")
 @app.route("/")
 def index():
 
+        flash("Wellcome")
         return render_template("index.html")
 
 
@@ -50,23 +51,26 @@ def bindimage():
         if (numofImgae == 0):
             return redirect("/")
         if (numofImgae != 0):
-            category = connection.cursor()
 
-            category.execute("select * from category")
-            categoryCount = connection.cursor()
 
-            categoryCount.execute("select count(*) from category ")
-            count = categoryCount.fetchone()[0]
+            imagecursor = connection.cursor()
+            imagecursor.execute("select * from   images where category is null")
 
-            c = connection.cursor()
-            c.execute("select * from   images where category is null")
             currentData = {}
-            currentData = c.fetchone()
+            currentData = imagecursor.fetchone()
 
             imgid = currentData[0]
             imgbinary = currentData[1]
             with open("./static/image_name.jpg", "wb") as img:
                 img.write(base64.b64decode(imgbinary))
+
+
+            category = connection.cursor()
+            category.execute("select * from category")
+
+            categoryCount = connection.cursor()
+            categoryCount.execute("select count(*) from category ")
+            count = categoryCount.fetchone()[0]
 
             rowData = {}  # this is a dict
             listRowData = []  # this is list
@@ -79,18 +83,18 @@ def bindimage():
                 rowData['id'] = currCategory[0]
                 listRowData.append(rowData)
                 currentRow = currentRow + 1
+
             return render_template("bindImage.html",id=imgid,binary="./static/image_name.jpg" , category=listRowData)
     else:
-        imgid = request.form['imgid']
-        category = request.form.get('category')
+            imgid = request.form['imgid']
+            category = request.form.get('category')
 
-        sql = "update  images set category= ? where id = ?"
+            sql = "update  images set category= ? where id = ?"
 
-        cursor = connection.cursor()
-        cursor.execute(sql,  [category , imgid])
-        connection.commit()
-        return redirect("/bindimage")
-
+            cursor = connection.cursor()
+            cursor.execute(sql,  [category , imgid])
+            connection.commit()
+            return redirect("/bindimage")
 
 
 @app.route("/upload_image", methods=["GET", "POST"])
@@ -101,11 +105,6 @@ def upload_image():
 
         f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(f)
-
-        x = open(f, 'rb')
-        k = x.read()
-        x.close()
-
 
         with open(f, "rb") as imageFile:
             str1 = base64.b64encode(imageFile.read())
