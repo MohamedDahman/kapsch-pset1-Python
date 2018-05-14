@@ -153,3 +153,39 @@ def buildCategoryList():
                 currentRow = currentRow + 1
 
             return listRowData
+
+
+@app.route("/category", methods=["GET", "POST"])
+def category():
+      if request.method == "POST":
+        units = request.form.get("description")
+        #should update the code and don't use db
+        db.execute("INSERT INTO units (description) VALUES (:description)",
+                   description=units)
+        units = db.execute("SELECT * FROM units")
+
+        return render_template("units.html", units=units)
+
+      else:
+            category = connection.cursor()
+            category.execute("SELECT * FROM category")
+
+            categoryCount = connection.cursor()
+            categoryCount.execute("select count(*) from category ")
+            count = categoryCount.fetchone()[0]
+
+
+            rowData = {}  # this is a dict
+            listRowData = []  # this is list
+
+            currentRow = 0
+            while currentRow <= count - 1:
+                rowData = {}
+                currCategory = category.fetchone()
+                rowData['description'] = currCategory[1]
+                rowData['id'] = currCategory[0]
+                listRowData.append(rowData)
+                currentRow = currentRow + 1
+
+
+            return render_template("category.html", category=listRowData)

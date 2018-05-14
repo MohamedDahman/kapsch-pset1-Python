@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Category type
+{% endblock %}
+
+{% block main %}
+
+
+    <form action="/category" method="post">
+        <!-- <div class="form-group">-->
+        <table class="table table-striped">
+            <tr>
+                <td><input autocomplete="on" autofocus class="form-control" name="description" placeholder="category" type="text"/></td>
+                <td><button class="btn btn-primary" type="submit">Add</button></td>
+            </tr>
+        </table>
+
+    </form>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th colspan=2>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in category %}
+            <tr>
+                <form method="POST" action="/editcategory">
+                <td><input autocomplete="on" autofocus class="form-control" name="description_details" placeholder="Category" type="text" value={{data.description}} ></td>
+                <td>
+                    <div class="form-group">
+                            <button class="btn btn-primary" name="editUnit" type="submit" value={{data.id}}>Edit</button>
+                    </div>
+                </td>
+                </form>
+                <td>
+                    <form method="POST" action="/deletecategory">
+                        <div class="form-group">
+                            <button class="btn btn-primary"  name="delcategory" type="submit" value={{data.id}}>Delete</button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{% endblock %}
