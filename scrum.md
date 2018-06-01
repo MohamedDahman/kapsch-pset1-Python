@@ -1,5 +1,5 @@
   ## Scrum session in Kapsch
-    ### type of metting in scrum 
+    - type of metting in scrum 
 
     * Refinement
     * Planning
