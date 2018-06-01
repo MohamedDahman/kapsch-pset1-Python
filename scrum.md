@@ -14,10 +14,10 @@
    do I have Problem?
    
    
-   Product Owner >> 
-      -[] What  
-      -[] When 
-      -[] priority
+   Product Owner 
+      -[X] What  
+      -[X] When 
+      -[X] priority
       
    scrum Master 
    scrum Team >> how and how much
