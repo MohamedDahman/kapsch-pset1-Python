@@ -15,15 +15,11 @@
    
    
    Product Owner 
-      -[X] What  
-      -[X] When 
-      -[X] priority
+      - [X] What  
+      - [X] When 
+      - [X] priority
       
    scrum Master 
    scrum Team >> how and how much
    
    Iteration / sprint 
-   
-   
-
-
