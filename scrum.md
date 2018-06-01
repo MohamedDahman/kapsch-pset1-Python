@@ -1,11 +1,11 @@
   ## Scrum session in Kapsch
     ### type of metting in scrum 
 
-    *Refinement*
-    *Planning*
-    ### Standup
-    ### Review
-    ### Retrospective
+    * Refinement
+    * Planning
+    * Standup
+    * Review
+    * Retrospective
 
 
   Standup Question:
