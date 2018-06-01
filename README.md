@@ -1,5 +1,5 @@
 ### Use case:
-	* User opens website.
+	## User opens website.
 	## First image of several images is shown.
 	## There is a dropdown that is used to categorize the image.
 	## The dropdown shows an empty entry at the beginning.
