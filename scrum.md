@@ -23,3 +23,9 @@
    scrum Team >> how and how much
    
    Iteration / sprint 
+   
+   producat Backlog
+    defect
+   Feature
+   user story
+   
