@@ -1,7 +1,7 @@
   ## Scrum session in Kapsch
     ### type of metting in scrum 
 
-    '''Refinement
+    #'''Refinement
     ### Planning
     ### Standup
     ### Review
